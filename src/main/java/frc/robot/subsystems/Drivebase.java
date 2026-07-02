@@ -54,10 +54,13 @@ public class Drivebase extends SubsystemBase {
 
     // Apply the configurations
     frontLeftMotor.configure(invertConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-    backLeftMotor.configure(invertConfig.follow(frontLeftMotor), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
     
+    SparkMaxConfig followConfig = new SparkMaxConfig();
+    followConfig.apply(config);
+    backLeftMotor.configure(followConfig.follow(frontLeftMotor), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+
     frontRightMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-    backRightMotor.configure(config.follow(frontRightMotor), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    backRightMotor.configure(followConfig.follow(frontRightMotor), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void move(double leftPower, double rightPower) {

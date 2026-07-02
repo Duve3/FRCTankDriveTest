@@ -47,20 +47,12 @@ public class RobotContainer {
     m_drive.setDefaultCommand(new Move(m_drive, () -> -m_driverController.getLeftY(), () -> m_driverController.getRightX()));
 
     m_driverController.x().onTrue(Commands.run(m_drive::stop));
-
-    m_driverController.povUp().onTrue(Commands.run(() -> m_drive.move(0.1, 0.1)));
-    m_driverController.povDown().onTrue(Commands.run(() -> m_drive.move(-0.1, -0.1)));
-    m_driverController.povLeft().onTrue(Commands.run(() -> m_drive.move(0.1, -0.1)));
-    m_driverController.povRight().onTrue(Commands.run(() -> m_drive.move(-0.1, 0.1)));
-
   }
 
 
   public void periodic() {
     SmartDashboard.putNumber("controller leftY", m_driverController.getLeftY());
     SmartDashboard.putNumber("controller rightX", m_driverController.getRightX());
-
-
   }
 
   /**
