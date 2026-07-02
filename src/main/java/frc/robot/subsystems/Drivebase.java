@@ -52,11 +52,9 @@ public class Drivebase extends SubsystemBase {
    * @param rightPower the power to put on right side
    * @return command
    */
-  public Command move(double leftPower, double rightPower) {
-    return Commands.run(() -> {
-        frontLeftMotor.set(leftPower);
-        frontRightMotor.set(rightPower);
-    });
+  public void move(double leftPower, double rightPower) {
+    frontLeftMotor.set(leftPower);
+    frontRightMotor.set(rightPower);
   }
 
   /**
