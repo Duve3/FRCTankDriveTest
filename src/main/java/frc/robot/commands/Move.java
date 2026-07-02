@@ -23,7 +23,6 @@ public class Move extends Command {
     }
 
     private void calculatePower() {
-        System.out.println("calculate");
         leftPower = leftYSupplier.get() - rightXSupplier.get();
         rightPower = leftYSupplier.get() + rightXSupplier.get();
 
@@ -34,7 +33,6 @@ public class Move extends Command {
 
     @Override
     public void execute() {
-        System.out.println("execute");
         calculatePower();
         driveSubsystem.move(leftPower, rightPower);
     }
