@@ -16,9 +16,14 @@ public class Move extends Command {
 
     public Move(Drivebase driveSubsystem, Supplier<Double> leftYSupplier, Supplier<Double> rightXSupplier) {
         this.driveSubsystem = driveSubsystem;
+
+        this.leftYSupplier = leftYSupplier;
+        this.rightXSupplier = rightXSupplier;
+        addRequirements(driveSubsystem);
     }
 
     private void calculatePower() {
+        System.out.println("calculate");
         leftPower = leftYSupplier.get() - rightXSupplier.get();
         rightPower = leftYSupplier.get() + rightXSupplier.get();
 
@@ -27,9 +32,15 @@ public class Move extends Command {
         rightPower /= 10;
     }
 
+    @Override
     public void execute() {
+        System.out.println("execute");
         calculatePower();
         driveSubsystem.move(leftPower, rightPower);
     }
 
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
