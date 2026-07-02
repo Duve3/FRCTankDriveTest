@@ -44,9 +44,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_drive.setDefaultCommand(new Move(m_drive, () -> m_driverController.getLeftY(), () -> -m_driverController.getRightX()));
+    m_drive.setDefaultCommand(new Move(m_drive, () -> -m_driverController.getLeftY(), () -> m_driverController.getRightX()));
 
-    m_driverController.x().onTrue(m_drive.stop());
+    m_driverController.x().onTrue(Commands.run(m_drive::stop));
   }
 
 
