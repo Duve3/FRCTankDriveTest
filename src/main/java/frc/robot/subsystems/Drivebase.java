@@ -7,8 +7,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.ResetMode;
+
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import com.revrobotics.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -69,26 +73,33 @@ public class Drivebase extends SubsystemBase {
     double leftY = controller.getLeftY();
     double rightX = controller.getRightX();
       
-      // Calculates the vectors
-      double rightSide = leftY + rightX;
-      double leftSide = leftY - rightX;
+    // Calculates the vectors
+    double rightSide = leftY + rightX;
+    double leftSide = leftY - rightX;
 
-      // Finds max power
-      double max = Math.max(Math.abs(rightSide), Math.abs(leftSide));
-      // Normalizes speed based on the max (making range 0-1)
-      if (max > 1) {
-        rightSide /= max;
-        leftSide /= max;
-      }
+    SmartDashboard.putNumber("rightSide", rightSide);
+    SmartDashboard.putNumber("leftSide", leftSide);
 
-      // Sets the power of the motors
-      // Makes sure it doesn't clash with auto
-      if (!DriverStation.isAutonomous()){
-        frontLeftMotor.set(leftSide);
-        backLeftMotor.set(leftSide);
-        frontRightMotor.set(rightSide);
-        backRightMotor.set(rightSide);
-      }
+    // // Finds max power
+    // double max = Math.max(Math.abs(rightSide), Math.abs(leftSide));
+    // // Normalizes speed based on the max (making range 0-1)
+    // if (max > 1) {
+    //   rightSide /= max;
+    //   leftSide /= max;
+    // }
+
+    // lower the power by 10 cuz im scared
+    leftSide /= 10;
+    rightSide /= 10;
+
+    // Sets the power of the motors
+    // Makes sure it doesn't clash with auto
+    if (!DriverStation.isAutonomous()){
+      frontLeftMotor.set(leftSide);
+      backLeftMotor.set(leftSide);
+      frontRightMotor.set(rightSide);
+      backRightMotor.set(rightSide);
+    }
   }
 
   @Override

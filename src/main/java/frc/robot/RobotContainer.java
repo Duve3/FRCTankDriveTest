@@ -30,6 +30,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    m_Drivebase.setController(m_driverController);
   }
 
   /**
@@ -43,6 +44,10 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // nothing for now
+  }
+
+  public void periodic() {
+    m_Drivebase.periodic();
   }
 
   /**
