@@ -8,7 +8,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Move;
 import frc.robot.subsystems.Drivebase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -44,8 +43,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_driverController.leftStick().onChange(new Move(m_drive, m_driverController.getLeftY(), m_driverController.getRightX()));
-    m_driverController.rightStick().onChange(new Move(m_drive, m_driverController.getLeftY(), m_driverController.getRightX()));
+    m_drive.setDefaultCommand(new Move(m_drive, m_driverController::getLeftY, m_driverController::getRightX));
 
     m_driverController.x().onTrue(m_drive.stop());
   }

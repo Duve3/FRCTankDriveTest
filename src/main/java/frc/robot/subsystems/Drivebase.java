@@ -41,9 +41,9 @@ public class Drivebase extends SubsystemBase {
 
     // Reset mode resets the already saved flash settings to default values, Persist mode saves current settings across cycles
     frontLeftMotor.configure(invertConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-    backLeftMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    backLeftMotor.configure(config.follow(frontLeftMotor), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
     frontRightMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-    backRightMotor.configure(invertConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    backRightMotor.configure(invertConfig.follow(backRightMotor), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
   }
 
    /**
@@ -55,9 +55,7 @@ public class Drivebase extends SubsystemBase {
   public Command move(double leftPower, double rightPower) {
     return Commands.run(() -> {
         frontLeftMotor.set(leftPower);
-        backLeftMotor.set(leftPower);
         frontRightMotor.set(rightPower);
-        backRightMotor.set(rightPower);
     });
   }
 
@@ -68,9 +66,7 @@ public class Drivebase extends SubsystemBase {
   public Command stop() {
     return Commands.run(() -> {
         frontLeftMotor.set(0);
-        backLeftMotor.set(0);
         frontRightMotor.set(0);
-        backRightMotor.set(0);
     });
   }
 }
